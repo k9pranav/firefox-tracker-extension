@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stats</title>
+  <link rel="stylesheet" href="./stats_page.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__inner">
+      <h1 class="title">Browsing Stats</h1>
+      <p class="subtitle">Last 7 days • updates automatically</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div id="status" class="status"></div>
+
+    <section class="panel">
+      <div class="panelHeader">
+        <h2 class="panelTitle">Overview</h2>
+        <div class="panelActions">
+          <button id="resetPie" class="btn" type="button">Reset Pie</button>
+          <button id="resetLine" class="btn" type="button">Reset Line</button>
+        </div>
+      </div>
+
+      <div class="chartGrid">
+        <div class="chartCard">
+          <div class="chartHeader">
+            <div class="chartTitle">Time by site</div>
+            <div id="pieSubtitle" class="chartHint">Overall (7 days)</div>
+          </div>
+          <div class="chartWrap">
+            <canvas id="pieChart"></canvas>
+          </div>
+        </div>
+
+        <div class="chartCard">
+          <div class="chartHeader">
+            <div class="chartTitle">Trend</div>
+            <div id="lineSubtitle" class="chartHint">Total time per day</div>
+          </div>
+          <div class="chartWrap">
+            <canvas id="lineChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="panelTitle">Days</h2>
+      <div id="daysContainer" class="daysList"></div>
+    </section>
+  </main>
+
+  <script src="../dist/stats.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+    "name": "Beastify",
+    "version": "1.0",
+    
+    "description": "Tracks the time a user spends on each website for personal use",
+
+    "icons":{
+        "48":"icons/beasts-48.png"
+    },
+    
+    "permissions":["tabs", "storage", "idle", "webNavigation"],
+
+    "background":{
+        "scripts":["dist/background.js"],
+        "persistent": true
+    },
+
+    "browser_action":{
+        "default_icon": "icons/beasts-48.png",
+        "default_title":"Check Statistics",
+        "default_popup":"popup/check_stats.html"
+
+    }
+
+
+}

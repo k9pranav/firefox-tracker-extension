@@ -137,3 +137,16 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Web-extension build output (if you don't want to commit it)
+dist/
+
+# Your scratch files
+myTree.txt
+pseudoCode.txt
+
+# macOS junk (you’re on Mac)
+.DS_Store
+
+# (optional) VS Code settings
+.vscode/

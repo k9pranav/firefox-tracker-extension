@@ -1,0 +1,21 @@
+{
+  "name": "myextension",
+  "version": "1.0.0",
+  "description": "",
+  "main": "backgroundScript.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "chart.js": "^4.5.1",
+    "tldts": "^7.0.19"
+  },
+  "devDependencies": {
+    "esbuild": "^0.27.2",
+    "web-ext": "^9.2.0"
+  }
+}

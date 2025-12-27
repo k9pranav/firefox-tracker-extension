@@ -1,0 +1,22 @@
+html,
+body{
+    width: 100px;
+}
+
+.hidden{
+    display: none;
+}
+
+button {
+    border: none;
+    width: 90%;
+    padding: 4px;
+    margin: 3% auto;
+    text-align: center;
+    cursor: pointer;
+    background-color: #ff0090;
+}
+
+button:hover{
+    background-color: purple;
+}
