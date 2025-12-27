@@ -452,17 +452,26 @@ async function main() {
   await initializeDay();
 
   state.isUserIdle = false;
-  state.isFirefoxFocused = true; // assume focused on startup; onFocusChanged will correct
 
-  // This is the most reliable way to get the active tab right now
-  const [tab] = await browser.tabs.query({ active: true, lastFocusedWindow: true });
+  const focusedWindow = await browser.windows.getLastFocused();
 
-  if (tab?.url) {
-    await startSessionForTab(tab, tab.windowId);
-    trace("startup:started", { url: tab.url, domain: state.currentDomain });
-  } else {
-    trace("startup:noActiveTab", {});
+  if (focusedWindow && focusedWindow.focused) {
+    state.isFirefoxFocused = true;
+    await resumeFromFocusedWindow(focusedWindow.id);
+  } else{
+    state.isFirefoxFocused = false;
   }
+//   state.isFirefoxFocused = true; // assume focused on startup; onFocusChanged will correct
+
+//   // This is the most reliable way to get the active tab right now
+//   const [tab] = await browser.tabs.query({ active: true, lastFocusedWindow: true });
+
+//   if (tab?.url) {
+//     await startSessionForTab(tab, tab.windowId);
+//     trace("startup:started", { url: tab.url, domain: state.currentDomain });
+//   } else {
+//     trace("startup:noActiveTab", {});
+//   }
 
   //await bootStrapSessionFromActiveTab("startup")
 }
@@ -611,6 +620,7 @@ globalThis.dev = {
 
 }
 
+//Saves my currect session, and then writes to the storage.local
 async function checkpointCurrentSession(reason) {
   if (!state.currentDomain || !state.startTimeMs) return;
 
@@ -627,29 +637,29 @@ async function checkpointCurrentSession(reason) {
   trace("checkpoint:write", { reason, domain, deltaMs: now - start });
 }
 
-// async function ensureSessionStarted(reason) {
-//   if (state.currentDomain && state.startTimeMs) return true;
+async function ensureSessionStarted(reason) {
+  if (state.currentDomain && state.startTimeMs) return true;
 
-//   const win = await browser.windows.getLastFocused();
-//   if (!win?.id) return false;
+  const win = await browser.windows.getLastFocused();
+  if (!win?.id) return false;
 
-//   const [tab] = await browser.tabs.query({ active: true, windowId: win.id });
-//   if (!tab?.url) return false;
+  const [tab] = await browser.tabs.query({ active: true, windowId: win.id });
+  if (!tab?.url) return false;
 
-//   // Make sure focus/idle flags won't block startup
-//   state.isFirefoxFocused = true;
-//   state.isUserIdle = false;
+  // Make sure focus/idle flags won't block startup
+  state.isFirefoxFocused = true;
+  state.isUserIdle = false;
 
-//   await startSessionForTab(tab, win.id); // will set currentDomain/startTimeMs if trackable
+  await startSessionForTab(tab, win.id); // will set currentDomain/startTimeMs if trackable
 
-//   trace("ensureSessionStarted", {
-//     reason,
-//     gotDomain: state.currentDomain,
-//     tabUrl: tab.url
-//   });
+  trace("ensureSessionStarted", {
+    reason,
+    gotDomain: state.currentDomain,
+    tabUrl: tab.url
+  });
 
-//   return !!(state.currentDomain && state.startTimeMs);
-// }
+  return !!(state.currentDomain && state.startTimeMs);
+}
 
 
 // browser.runtime.onMessage.addListener((msg) => {
@@ -667,15 +677,23 @@ async function checkpointCurrentSession(reason) {
 //   }
 // });
 
+browser.runtime.onMessage.addListener(async (msg) => {
+    if (msg?.type === "FLUSH_SESSION") {
+        return(async() => {
+            await checkpointCurrentSession("popup checkpoint");
+            return {ok: true};
+        })();
+    }
+})
 
 
-// browser.runtime.onInstalled.addListener(() => {
-//   main().catch(console.error);
-// });
+browser.runtime.onInstalled.addListener(() => {
+  main().catch(console.error);
+});
 
-// browser.runtime.onStartup.addListener(() => {
-//   main().catch(console.error);
-// });
+browser.runtime.onStartup.addListener(() => {
+  main().catch(console.error);
+});
 
 main();
 
