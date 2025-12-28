@@ -365,9 +365,6 @@ browser.tabs.onActivated.addListener(handleTabActivation);
 async function handleTabUpdating(tabId, changeInfo, tab) {
     
     trace("event:onUpdated", { tabId, url: changeInfo.url, status: changeInfo.status });
-    if (tabId != state.currentTabId) {
-        return;
-    }
 
     if (changeInfo.url === undefined || !changeInfo.url) {
         return;
@@ -383,6 +380,24 @@ async function handleTabUpdating(tabId, changeInfo, tab) {
     if (newDomain != state.currentDomain) {
         await finalizeCurrentSession("domain change");
         await startSessionForTab(tab, state.currentWindowId);
+    }
+
+    //New code logic; comming from an untrackable tab, starts tracking is current tab becomes trackable
+    if (state.currentTabId == null) {
+        if (!state.isFirefoxFocused || state.isUserIdle) {
+            return;
+        }
+
+        if (!tab?.active) {
+            return;
+        }
+
+        const newDomain = baseDomainFromUrl(changeInfo.url);
+        if (newDomain == null) {
+            return;
+        }
+
+        await startSessionForTab(tab, tab.windowId);
     }
 }
 
