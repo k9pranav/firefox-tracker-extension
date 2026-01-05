@@ -1,16 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="check_stats.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="check_stats.css" />
 </head>
 <body>
-    <div id="pop-content">
-        <button id="checkStats">Check Statistics</button>
-    </div>
-    <div id="error-content" class="hidden">
-        <p>Can't calculate/Show your Statistics</p>
-    </div>
-    <script src="../dist/popup.js"></script>
+  <main class="popup">
+    <header class="header">
+      <div class="appIcon" aria-hidden="true">⏱️</div>
+      <div>
+        <div class="title">Site Tracker</div>
+        <div class="subtitle">Quick stats</div>
+      </div>
+    </header>
+
+    <section id="pop-content" class="card">
+      <button id="checkStats" class="primaryBtn">
+        Check statistics
+      </button>
+      <p class="hint">Opens the dashboard for details.</p>
+    </section>
+
+    <section id="error-content" class="card hidden" role="alert" aria-live="polite">
+      <div class="errorRow">
+        <span class="errorIcon" aria-hidden="true">⚠️</span>
+        <div>
+          <div class="errorTitle">Can’t show statistics</div>
+          <div class="errorText">Try reloading the page or opening a normal tab.</div>
+        </div>
+      </div>
+
+      <button id="retry" class="secondaryBtn">Try again</button>
+    </section>
+  </main>
+
+  <script src="../dist/popup.js"></script>
 </body>
 </html>

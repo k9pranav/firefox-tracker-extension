@@ -1,22 +1,133 @@
-html,
-body{
-    width: 100px;
+:root{
+  --bg: #f5f5f7;
+  --card: #ffffff;
+  --text: #1d1d1f;
+  --muted: #6e6e73;
+  --border: rgba(0,0,0,0.08);
+  --shadow: 0 10px 30px rgba(0,0,0,0.12);
+  --primary: #0a84ff;
+  --primaryHover: #0077ed;
+  --danger: #ff3b30;
+}
+
+* { box-sizing: border-box; }
+
+html, body{
+  margin: 0;
+  padding: 0;
+  width: 260px;              /* better than 100px for a useful popup */
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, system-ui, sans-serif;
+}
+
+.popup{
+  padding: 12px;
+}
+
+.header{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 8px 10px 8px;
+}
+
+.appIcon{
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(10,132,255,0.12);
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+}
+
+.title{
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.subtitle{
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 12px;
+}
+
+.hint{
+  margin: 8px 2px 0 2px;
+  font-size: 12px;
+  color: var(--muted);
 }
 
 .hidden{
-    display: none;
+  display: none !important; /* good for toggling states */
 }
 
-button {
-    border: none;
-    width: 90%;
-    padding: 4px;
-    margin: 3% auto;
-    text-align: center;
-    cursor: pointer;
-    background-color: #ff0090;
+button{
+  border: 0;
+  border-radius: 12px;
+  padding: 10px 12px;
+  width: 100%;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.05s ease, filter 0.15s ease;
 }
 
-button:hover{
-    background-color: purple;
+button:active{
+  transform: scale(0.99);
+}
+
+.primaryBtn{
+  background: var(--primary);
+  color: white;
+}
+.primaryBtn:hover{
+  filter: brightness(0.95);
+  background: var(--primaryHover);
+}
+
+.secondaryBtn{
+  margin-top: 10px;
+  background: rgba(0,0,0,0.06);
+  color: var(--text);
+}
+.secondaryBtn:hover{
+  filter: brightness(0.96);
+}
+
+.errorRow{
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.errorIcon{
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: rgba(255,59,48,0.12);
+  display: grid;
+  place-items: center;
+}
+
+.errorTitle{
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.errorText{
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.3;
 }
