@@ -1,6 +1,6 @@
 import * as tldts from "tldts";
 
-const DEBUG = true;
+const DEBUG = false;
 
 const DEV_TIME_SCALE = 120;
 

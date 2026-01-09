@@ -1,0 +1,13 @@
+This extension includes third-party open-source software:
+
+1. Chart.js
+   License: MIT
+   https://github.com/chartjs/Chart.js
+
+2. tldts
+   License: MIT
+   https://github.com/remusao/tldts
+
+3. webpack
+   License: MIT
+   https://github.com/webpack/webpack

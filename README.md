@@ -150,6 +150,14 @@ The plan is to get the extension published for everyone to install!
 
 ---
 
+## Licenses
+
+This project uses the following open-source libraries:
+
+- Chart.js (MIT)
+- tldts (MIT)
+- webpack (MIT)
+
 ## Planned Enhancements
 
 - Longer history views (30 days, 90 days)
